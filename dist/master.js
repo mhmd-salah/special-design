@@ -2,7 +2,20 @@
 // check if thers local stroage color 
 let mainColors = localStorage.getItem("color_option");
 if (mainColors !== null) {
-    document.documentElement.style.setProperty("--main-color", localStorage.getItem("color_option"));
+    document.documentElement.style.setProperty( "--main-color", localStorage.getItem( "color_option" ) );
+    document.querySelectorAll( ".colors-list li" ).forEach( li => {
+        li.classList.remove("active")
+        li.addEventListener( "click", function ( e ) {
+            document.querySelectorAll( ".colors-list li" ).forEach( li => {
+                li.classList.remove("active")
+            })
+            e.target.classList.add( "active" )
+            
+        })
+        if ( li.dataset.color === mainColors ) {
+            li.classList.add("active")
+        }
+    })
 }
 // toogle spin class on icon 
 let toggleSetting = document.querySelector(".togglle-settings i ");
@@ -25,6 +38,17 @@ colorsLi.forEach(li => {
             document.documentElement.style.setProperty("--main-color", co);
             localStorage.setItem("color_option", co);
         }
+    });
+} );
+
+// switch random background option;
+const randomBackEl = document.querySelectorAll(".random-backgrounds span");
+randomBackEl.forEach(span => {
+    span.addEventListener("click", (e) => {
+        e.target.parentElement.querySelectorAll( ".active" ).forEach( el => {
+            el.classList.remove("active")
+        } )
+        e.target.classList.add("active")
     });
 });
 // select landing page element 
